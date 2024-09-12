@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Единый реестр пользователей юридических услуг</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #b22222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            color: #800000;
+        }
+
+        .search-section {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .search-section input {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .search-section button {
+            padding: 10px;
+            background-color: #b22222;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-section button:hover {
+            background-color: #800000;
+        }
+
+        .clients-table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        .clients-table table {
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        .clients-table th, .clients-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .clients-table th {
+            background-color: #b22222;
+            color: white;
+        }
+
+        .clients-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #b22222;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        Единый реестр пользователей юридических услуг
+    </header>
+
+    <section class="info">
+        <p>Мы сотрудничаем со странами Азии, предоставляя качественные юридические услуги.</p>
+    </section>
+
+    <section class="search-section">
+        <label for="search">Поиск по имени и фамилии:</label>
+        <input type="text" id="search" placeholder="Введите имя или фамилию">
+        <button onclick="searchUser()">Найти</button>
+    </section>
+
+    <section class="clients-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Телефон</th>
+                </tr>
+            </thead>
+            <tbody id="clientList">
+                <!-- Клиенты будут динамически добавляться сюда -->
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Единый реестр пользователей юридических услуг. Все права защищены.</p>
+    </footer>
+
+    <script>
+        const clients = [
+            {name: "О.А. Сагатбаев", phone: "+7 777 *** **12"},
+            {name: "О.Е. Ахметов", phone: "+7 701 *** **45"},
+            {name: "О.И. Казыбеков", phone: "+996 555 *** **23"},
+            {name: "О.М. Нурланов", phone: "+996 770 *** **98"},
+            // Добавьте еще имена, чтобы было больше 567 клиентов
+        ];
+
+        function displayClients(clients) {
+            const clientList = document.getElementById('clientList');
+            clientList.innerHTML = '';
+
+            clients.forEach(client => {
+                const row = document.createElement('tr');
+                const nameCell = document.createElement('td');
+                const phoneCell = document.createElement('td');
+
+                nameCell.textContent = client.name;
+                phoneCell.textContent = client.phone;
+
+                row.appendChild(nameCell);
+                row.appendChild(phoneCell);
+                clientList.appendChild(row);
+            });
+        }
+
+        function searchUser() {
+            const searchQuery = document.getElementById('search').value.toLowerCase();
+            const filteredClients = clients.filter(client =>
+                client.name.toLowerCase().includes(searchQuery)
+            );
+            displayClients(filteredClients);
+        }
+
+        // Отображаем всех клиентов при загрузке страницы
+        displayClients(clients);
+    </script>
+
+</body>
+</html>
